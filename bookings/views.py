@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Booking
 from .forms import BookingForm
 from payments.forms import PaymentForm
 from payments.models import Payment
 
 
+@login_required
 def booking_list(request):
     bookings = Booking.objects.select_related('customer', 'payment').all()
     query = request.GET.get('q', '')
@@ -25,6 +27,7 @@ def booking_list(request):
     })
 
 
+@login_required
 def booking_detail(request, pk):
     booking = get_object_or_404(
         Booking.objects.select_related('customer', 'payment'), pk=pk
@@ -34,6 +37,7 @@ def booking_detail(request, pk):
     })
 
 
+@login_required
 def booking_create(request):
     if request.method == 'POST':
         booking_form = BookingForm(request.POST)
@@ -55,6 +59,7 @@ def booking_create(request):
     })
 
 
+@login_required
 def booking_update(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     try:
@@ -83,6 +88,7 @@ def booking_update(request, pk):
     })
 
 
+@login_required
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     if request.method == 'POST':
