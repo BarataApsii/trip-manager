@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Customer
 from .forms import CustomerForm
 
 
+@login_required
 def customer_list(request):
     customers = Customer.objects.all()
     query = request.GET.get('q', '')
@@ -21,6 +23,7 @@ def customer_list(request):
     })
 
 
+@login_required
 def customer_detail(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     return render(request, 'customers/customer_detail.html', {
@@ -28,6 +31,7 @@ def customer_detail(request, pk):
     })
 
 
+@login_required
 def customer_create(request):
     if request.method == 'POST':
         form = CustomerForm(request.POST)
@@ -43,6 +47,7 @@ def customer_create(request):
     })
 
 
+@login_required
 def customer_update(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     if request.method == 'POST':
@@ -60,6 +65,7 @@ def customer_update(request, pk):
     })
 
 
+@login_required
 def customer_delete(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     if request.method == 'POST':

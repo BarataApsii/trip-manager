@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel - Trip Manager{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Panel</h2>
+    <a href="{% url 'core:admin_user_create' %}" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Add User
+    </a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card customers">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Total Users</h6>
+                <h2 class="card-title mt-2">{{ total_users }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card bookings">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Total Customers</h6>
+                <h2 class="card-title mt-2">{{ total_customers }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card revenue">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Total Bookings</h6>
+                <h2 class="card-title mt-2">{{ total_bookings }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">System Users</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Joined</th>
+                    <th>Last Login</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_obj in users %}
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i> {{ user_obj.username }}
+                        {% if user_obj == request.user %}
+                            <span class="badge bg-info">You</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user_obj.email|default:"-" }}</td>
+                    <td>
+                        {% if user_obj.is_superuser %}
+                            <span class="badge bg-danger">Superuser</span>
+                        {% elif user_obj.is_staff %}
+                            <span class="badge bg-warning text-dark">Admin</span>
+                        {% else %}
+                            <span class="badge bg-secondary">User</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user_obj.date_joined|date:"M d, Y" }}</td>
+                    <td>{{ user_obj.last_login|date:"M d, Y H:i"|default:"Never" }}</td>
+                    <td>
+                        {% if user_obj != request.user %}
+                        <a href="{% url 'core:admin_user_delete' user_obj.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
