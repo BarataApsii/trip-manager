@@ -25,10 +25,10 @@
                 <tr>
                     <td><a href="{% url 'bookings:booking_detail' payment.booking.pk %}">{{ payment.booking.pnr }}</a></td>
                     <td>{{ payment.booking.customer.full_name }}</td>
-                    <td>${{ payment.airfare|floatformat:2 }}</td>
-                    <td>${{ payment.tax|floatformat:2 }}</td>
-                    <td>${{ payment.service_fee|floatformat:2 }}</td>
-                    <td class="fw-bold">${{ payment.total|floatformat:2 }}</td>
+                    <td>K{{ payment.airfare|floatformat:2 }}</td>
+                    <td>K{{ payment.tax|floatformat:2 }}</td>
+                    <td>K{{ payment.service_fee|floatformat:2 }}</td>
+                    <td class="fw-bold">K{{ payment.total|floatformat:2 }}</td>
                     <td>{{ payment.get_payment_method_display }}</td>
                     <td>
                         <span class="badge bg-{% if payment.status == 'paid' %}success{% elif payment.status == 'pending' %}warning{% else %}info{% endif %}">

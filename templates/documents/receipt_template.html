@@ -98,13 +98,13 @@
     <div class="section">
         <h3>Payment Breakdown</h3>
         <table>
-            <tr><th>Airfare</th><td>${{ payment.airfare }}</td></tr>
-            <tr><th>Tax</th><td>${{ payment.tax }}</td></tr>
-            <tr><th>Service Fee</th><td>${{ payment.service_fee }}</td></tr>
+            <tr><th>Airfare</th><td>K{{ payment.airfare }}</td></tr>
+            <tr><th>Tax</th><td>K{{ payment.tax }}</td></tr>
+            <tr><th>Service Fee</th><td>K{{ payment.service_fee }}</td></tr>
             {% if payment.discount %}
-            <tr><th>Discount</th><td>-${{ payment.discount }}</td></tr>
+            <tr><th>Discount</th><td>-K{{ payment.discount }}</td></tr>
             {% endif %}
-            <tr class="total-row"><th>TOTAL</th><td>${{ payment.total }}</td></tr>
+            <tr class="total-row"><th>TOTAL</th><td>K{{ payment.total }}</td></tr>
         </table>
         <p><strong>Payment Method:</strong> {{ payment.get_payment_method_display }}</p>
         <p><strong>Payment Status:</strong> {{ payment.get_status_display }}</p>
