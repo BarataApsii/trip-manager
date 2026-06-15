@@ -75,15 +75,15 @@
                 {% if booking.payment %}
                 <dl class="row mb-0">
                     <dt class="col-sm-5">Airfare</dt>
-                    <dd class="col-sm-7">${{ booking.payment.airfare|floatformat:2 }}</dd>
+                    <dd class="col-sm-7">K{{ booking.payment.airfare|floatformat:2 }}</dd>
                     <dt class="col-sm-5">Tax</dt>
-                    <dd class="col-sm-7">${{ booking.payment.tax|floatformat:2 }}</dd>
+                    <dd class="col-sm-7">K{{ booking.payment.tax|floatformat:2 }}</dd>
                     <dt class="col-sm-5">Service Fee</dt>
-                    <dd class="col-sm-7">${{ booking.payment.service_fee|floatformat:2 }}</dd>
+                    <dd class="col-sm-7">K{{ booking.payment.service_fee|floatformat:2 }}</dd>
                     <dt class="col-sm-5">Discount</dt>
-                    <dd class="col-sm-7">${{ booking.payment.discount|floatformat:2 }}</dd>
+                    <dd class="col-sm-7">K{{ booking.payment.discount|floatformat:2 }}</dd>
                     <dt class="col-sm-5 fw-bold">Total</dt>
-                    <dd class="col-sm-7 fw-bold">${{ booking.payment.total|floatformat:2 }}</dd>
+                    <dd class="col-sm-7 fw-bold">K{{ booking.payment.total|floatformat:2 }}</dd>
                     <dt class="col-sm-5">Method</dt>
                     <dd class="col-sm-7">{{ booking.payment.get_payment_method_display }}</dd>
                     <dt class="col-sm-5">Status</dt>

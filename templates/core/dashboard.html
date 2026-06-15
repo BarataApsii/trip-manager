@@ -28,7 +28,7 @@
         <div class="card stat-card revenue">
             <div class="card-body">
                 <h6 class="card-subtitle text-muted">Total Revenue</h6>
-                <h2 class="card-title mt-2">${{ total_revenue|floatformat:2 }}</h2>
+                <h2 class="card-title mt-2">K{{ total_revenue|floatformat:2 }}</h2>
                 <a href="{% url 'payments:payment_list' %}" class="text-decoration-none">View all &rarr;</a>
             </div>
         </div>

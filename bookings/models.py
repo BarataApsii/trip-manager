@@ -9,6 +9,13 @@ class Booking(models.Model):
         ('cancelled', 'Cancelled'),
     ]
 
+    CLASS_CHOICES = [
+        ('economy', 'Economy'),
+        ('premium_economy', 'Premium Economy'),
+        ('business', 'Business'),
+        ('first', 'First Class'),
+    ]
+
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='bookings'
     )
@@ -22,7 +29,9 @@ class Booking(models.Model):
     departure_time = models.TimeField(blank=True, null=True)
     arrival_date = models.DateField(blank=True, null=True)
     arrival_time = models.TimeField(blank=True, null=True)
-    booking_class = models.CharField(max_length=20, blank=True, null=True)
+    booking_class = models.CharField(
+        max_length=20, choices=CLASS_CHOICES, default='economy'
+    )
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default='confirmed'
     )
