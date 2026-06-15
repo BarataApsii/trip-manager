@@ -39,7 +39,7 @@ class BookingForm(forms.ModelForm):
             'departure_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
             'arrival_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'arrival_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
-            'booking_class': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g. Economy'}),
+            'booking_class': forms.Select(attrs={'class': 'form-select'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
             'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Any additional notes...'}),
         }
