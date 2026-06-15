@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Payments - Trip Manager{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Payments</h2>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Booking PNR</th>
+                    <th>Customer</th>
+                    <th>Airfare</th>
+                    <th>Tax</th>
+                    <th>Service Fee</th>
+                    <th>Total</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td><a href="{% url 'bookings:booking_detail' payment.booking.pk %}">{{ payment.booking.pnr }}</a></td>
+                    <td>{{ payment.booking.customer.full_name }}</td>
+                    <td>${{ payment.airfare|floatformat:2 }}</td>
+                    <td>${{ payment.tax|floatformat:2 }}</td>
+                    <td>${{ payment.service_fee|floatformat:2 }}</td>
+                    <td class="fw-bold">${{ payment.total|floatformat:2 }}</td>
+                    <td>{{ payment.get_payment_method_display }}</td>
+                    <td>
+                        <span class="badge bg-{% if payment.status == 'paid' %}success{% elif payment.status == 'pending' %}warning{% else %}info{% endif %}">
+                            {{ payment.get_status_display }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center py-4 text-muted">No payments recorded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

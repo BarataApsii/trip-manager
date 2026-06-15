@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Advisory - {{ booking.pnr }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1a5276;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #1a5276;
+        }
+        .header p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section h3 {
+            color: #1a5276;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table td, table th {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #eaf2f8;
+            text-align: left;
+            width: 35%;
+        }
+        .important {
+            background-color: #fef9e7;
+            border: 1px solid #f9e79f;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .important h4 {
+            color: #d68910;
+            margin-top: 0;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .checklist li:before {
+            content: "\2610";
+            position: absolute;
+            left: 0;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>TRAVEL ADVISORY</h1>
+        <p><strong>NextDev-PNG</strong> - Travel Booking Services</p>
+        <p>Madang Town, Madang Province, PNG</p>
+        <p>Phone: +675 71570096 | Email: info@nextdev-png.com</p>
+    </div>
+
+    <div class="section">
+        <h3>Passenger Information</h3>
+        <table>
+            <tr><th>Passenger Name</th><td>{{ customer.full_name }}</td></tr>
+            <tr><th>Contact Email</th><td>{{ customer.email|default:"-" }}</td></tr>
+            <tr><th>Contact Phone</th><td>{{ customer.phone|default:"-" }}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Flight Details</h3>
+        <table>
+            <tr><th>Booking Reference (PNR)</th><td>{{ booking.pnr }}</td></tr>
+            <tr><th>Ticket Number</th><td>{{ booking.ticket_number|default:"-" }}</td></tr>
+            <tr><th>Airline</th><td>{{ booking.airline }}</td></tr>
+            <tr><th>Flight Number</th><td>{{ booking.flight_number|default:"-" }}</td></tr>
+            <tr><th>From</th><td>{{ booking.origin }}</td></tr>
+            <tr><th>To</th><td>{{ booking.destination }}</td></tr>
+            <tr><th>Departure Date</th><td>{{ booking.departure_date }}</td></tr>
+            <tr><th>Departure Time</th><td>{{ booking.departure_time|default:"To be confirmed" }}</td></tr>
+            {% if booking.arrival_date %}
+            <tr><th>Arrival Date</th><td>{{ booking.arrival_date }}</td></tr>
+            {% endif %}
+            {% if booking.arrival_time %}
+            <tr><th>Arrival Time</th><td>{{ booking.arrival_time }}</td></tr>
+            {% endif %}
+            <tr><th>Class</th><td>{{ booking.booking_class|default:"Economy" }}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Travel Instructions</h3>
+        <ul class="checklist">
+            <li>Arrive at the airport at least 2 hours before departure (3 hours for international flights)</li>
+            <li>Carry a valid photo ID / passport</li>
+            <li>Keep your booking reference (PNR: {{ booking.pnr }}) handy</li>
+            <li>Check airline website for baggage allowance</li>
+            <li>Complete online check-in 24 hours before departure if available</li>
+            <li>Verify travel documents and visa requirements for your destination</li>
+        </ul>
+    </div>
+
+    <div class="important">
+        <h4>Important Reminders</h4>
+        <ul>
+            <li>Flight schedules are subject to change. Please verify your flight status before departing to the airport.</li>
+            <li>Contact the airline directly for any changes or special requests.</li>
+            <li>Travel insurance is recommended for all journeys.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>This advisory is generated for informational purposes. Please verify all details with your airline.</p>
+        <p>NextDev-PNG | Phone: +675 71570096 | Email: info@nextdev-png.com</p>
+        <p>Safe travels!</p>
+    </div>
+</body>
+</html>

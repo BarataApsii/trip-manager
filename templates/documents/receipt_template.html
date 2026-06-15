@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Receipt - {{ booking.pnr }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #1a5276;
+        }
+        .header p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section h3 {
+            color: #1a5276;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table td, table th {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f5f5f5;
+            text-align: left;
+        }
+        .total-row {
+            font-weight: bold;
+            font-size: 1.1em;
+            background-color: #eaf2f8;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>RECEIPT</h1>
+        <p><strong>NextDev-PNG</strong> - Travel Booking Services</p>
+        <p>Madang Town, Madang Province, PNG</p>
+        <p>Phone: +675 71570096 | Email: info@nextdev-png.com</p>
+    </div>
+
+    <div class="section">
+        <h3>Booking Reference</h3>
+        <table>
+            <tr><th>PNR</th><td>{{ booking.pnr }}</td></tr>
+            <tr><th>Ticket Number</th><td>{{ booking.ticket_number|default:"-" }}</td></tr>
+            <tr><th>Date</th><td>{{ booking.departure_date }}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Customer</h3>
+        <table>
+            <tr><th>Name</th><td>{{ customer.full_name }}</td></tr>
+            <tr><th>Email</th><td>{{ customer.email|default:"-" }}</td></tr>
+            <tr><th>Phone</th><td>{{ customer.phone|default:"-" }}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Flight Details</h3>
+        <table>
+            <tr><th>Airline</th><td>{{ booking.airline }}</td></tr>
+            <tr><th>Flight</th><td>{{ booking.flight_number|default:"-" }}</td></tr>
+            <tr><th>Route</th><td>{{ booking.origin }} &rarr; {{ booking.destination }}</td></tr>
+            <tr><th>Departure</th><td>{{ booking.departure_date }} {% if booking.departure_time %}at {{ booking.departure_time }}{% endif %}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Payment Breakdown</h3>
+        <table>
+            <tr><th>Airfare</th><td>${{ payment.airfare }}</td></tr>
+            <tr><th>Tax</th><td>${{ payment.tax }}</td></tr>
+            <tr><th>Service Fee</th><td>${{ payment.service_fee }}</td></tr>
+            {% if payment.discount %}
+            <tr><th>Discount</th><td>-${{ payment.discount }}</td></tr>
+            {% endif %}
+            <tr class="total-row"><th>TOTAL</th><td>${{ payment.total }}</td></tr>
+        </table>
+        <p><strong>Payment Method:</strong> {{ payment.get_payment_method_display }}</p>
+        <p><strong>Payment Status:</strong> {{ payment.get_status_display }}</p>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for choosing NextDev-PNG!</p>
+        <p>Phone: +675 71570096 | Email: info@nextdev-png.com</p>
+        <p>This is a computer-generated receipt.</p>
+    </div>
+</body>
+</html>
