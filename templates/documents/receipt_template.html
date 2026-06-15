@@ -4,114 +4,262 @@
     <meta charset="UTF-8">
     <title>Receipt - {{ booking.pnr }}</title>
     <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #333;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            color: #1a5276;
+            padding: 0;
+            color: #2c3e50;
+            font-size: 13px;
+            line-height: 1.5;
         }
-        .header p {
-            margin: 5px 0;
-            color: #666;
-        }
-        .section {
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1a5276;
             margin-bottom: 25px;
         }
-        .section h3 {
-            color: #1a5276;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
+        .company-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
         }
+        .company-logo img {
+            width: 70px;
+            height: auto;
+        }
+        .company-details h2 {
+            margin: 0 0 4px 0;
+            color: #1a5276;
+            font-size: 20px;
+        }
+        .company-details p {
+            margin: 2px 0;
+            color: #555;
+            font-size: 12px;
+        }
+        .receipt-title {
+            text-align: right;
+        }
+        .receipt-title h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #1a5276;
+            letter-spacing: 2px;
+        }
+        .receipt-title p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* Booking reference bar */
+        .ref-bar {
+            background-color: #f0f6fb;
+            border: 1px solid #d4e6f1;
+            border-radius: 6px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .ref-bar .ref-item {
+            text-align: center;
+        }
+        .ref-bar .ref-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #777;
+            letter-spacing: 1px;
+        }
+        .ref-bar .ref-value {
+            font-size: 15px;
+            font-weight: bold;
+            color: #1a5276;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #1a5276;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
         }
         table td, table th {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
+            padding: 9px 12px;
+            text-align: left;
+            font-size: 12px;
         }
         table th {
-            background-color: #f5f5f5;
-            text-align: left;
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+            width: 35%;
+            border-bottom: 1px solid #e9ecef;
         }
-        .total-row {
+        table td {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* Two-column layout */
+        .two-col {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .two-col .col {
+            flex: 1;
+        }
+
+        /* Payment table */
+        .payment-table th {
+            width: 60%;
+        }
+        .payment-table td {
+            text-align: right;
+            font-weight: 500;
+        }
+        .payment-table .total-row td,
+        .payment-table .total-row th {
+            background-color: #1a5276;
+            color: #fff;
+            font-size: 14px;
             font-weight: bold;
-            font-size: 1.1em;
-            background-color: #eaf2f8;
+            border: none;
+            padding: 12px;
         }
+
+        /* Footer */
         .footer {
-            margin-top: 40px;
+            margin-top: 35px;
             text-align: center;
-            color: #999;
-            font-size: 0.9em;
-            border-top: 1px solid #ddd;
             padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .footer p {
+            margin: 3px 0;
+            color: #888;
+            font-size: 11px;
+        }
+        .footer .thank-you {
+            font-size: 14px;
+            color: #1a5276;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
+    <!-- Header with logo and company info -->
     <div class="header">
-        <h1>RECEIPT</h1>
-        <p><strong>NextDev-PNG</strong> - Travel Booking Services</p>
-        <p>Madang Town, Madang Province, PNG</p>
-        <p>Phone: +675 71570096 | Email: info@nextdev-png.com</p>
+        <div class="company-info">
+            <div class="company-logo">
+                <img src="file://{{ logo_path }}" alt="NextDev-PNG">
+            </div>
+            <div class="company-details">
+                <h2>NextDev-PNG</h2>
+                <p>Travel Booking Services</p>
+                <p>Madang Town, Madang Province, PNG</p>
+                <p>Phone: +675 71570096</p>
+                <p>Email: info@nextdev-png.com</p>
+            </div>
+        </div>
+        <div class="receipt-title">
+            <h1>RECEIPT</h1>
+            <p>Date: {{ booking.created_at|date:"M d, Y" }}</p>
+        </div>
     </div>
 
-    <div class="section">
-        <h3>Booking Reference</h3>
-        <table>
-            <tr><th>PNR</th><td>{{ booking.pnr }}</td></tr>
-            <tr><th>Ticket Number</th><td>{{ booking.ticket_number|default:"-" }}</td></tr>
-            <tr><th>Date</th><td>{{ booking.departure_date }}</td></tr>
-        </table>
+    <!-- Booking reference bar -->
+    <div class="ref-bar">
+        <div class="ref-item">
+            <div class="ref-label">Booking Reference (PNR)</div>
+            <div class="ref-value">{{ booking.pnr }}</div>
+        </div>
+        <div class="ref-item">
+            <div class="ref-label">Ticket Number</div>
+            <div class="ref-value">{{ booking.ticket_number|default:"—" }}</div>
+        </div>
+        <div class="ref-item">
+            <div class="ref-label">Status</div>
+            <div class="ref-value">{{ booking.get_status_display }}</div>
+        </div>
+        <div class="ref-item">
+            <div class="ref-label">Class</div>
+            <div class="ref-value">{{ booking.get_booking_class_display }}</div>
+        </div>
     </div>
 
-    <div class="section">
-        <h3>Customer</h3>
-        <table>
-            <tr><th>Name</th><td>{{ customer.full_name }}</td></tr>
-            <tr><th>Email</th><td>{{ customer.email|default:"-" }}</td></tr>
-            <tr><th>Phone</th><td>{{ customer.phone|default:"-" }}</td></tr>
-        </table>
+    <!-- Customer & Flight side by side -->
+    <div class="two-col">
+        <div class="col">
+            <div class="section">
+                <div class="section-title">Passenger Details</div>
+                <table>
+                    <tr><th>Full Name</th><td>{{ customer.full_name }}</td></tr>
+                    <tr><th>Email</th><td>{{ customer.email|default:"—" }}</td></tr>
+                    <tr><th>Phone</th><td>{{ customer.phone|default:"—" }}</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <div class="section">
+                <div class="section-title">Flight Details</div>
+                <table>
+                    <tr><th>Airline</th><td>{{ booking.airline }}</td></tr>
+                    <tr><th>Flight No.</th><td>{{ booking.flight_number|default:"—" }}</td></tr>
+                    <tr><th>Route</th><td>{{ booking.origin }} &rarr; {{ booking.destination }}</td></tr>
+                    <tr><th>Departure</th><td>{{ booking.departure_date|date:"M d, Y" }}{% if booking.departure_time %} at {{ booking.departure_time|time:"H:i" }}{% endif %}</td></tr>
+                    {% if booking.arrival_date %}
+                    <tr><th>Arrival</th><td>{{ booking.arrival_date|date:"M d, Y" }}{% if booking.arrival_time %} at {{ booking.arrival_time|time:"H:i" }}{% endif %}</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
     </div>
 
+    <!-- Payment breakdown -->
     <div class="section">
-        <h3>Flight Details</h3>
-        <table>
-            <tr><th>Airline</th><td>{{ booking.airline }}</td></tr>
-            <tr><th>Flight</th><td>{{ booking.flight_number|default:"-" }}</td></tr>
-            <tr><th>Route</th><td>{{ booking.origin }} &rarr; {{ booking.destination }}</td></tr>
-            <tr><th>Departure</th><td>{{ booking.departure_date }} {% if booking.departure_time %}at {{ booking.departure_time }}{% endif %}</td></tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <h3>Payment Breakdown</h3>
-        <table>
-            <tr><th>Airfare</th><td>K{{ payment.airfare }}</td></tr>
-            <tr><th>Tax</th><td>K{{ payment.tax }}</td></tr>
-            <tr><th>Service Fee</th><td>K{{ payment.service_fee }}</td></tr>
+        <div class="section-title">Payment Summary</div>
+        <table class="payment-table">
+            <tr><th>Airfare</th><td>K{{ payment.airfare|floatformat:2 }}</td></tr>
+            <tr><th>Tax</th><td>K{{ payment.tax|floatformat:2 }}</td></tr>
+            <tr><th>Service Fee</th><td>K{{ payment.service_fee|floatformat:2 }}</td></tr>
             {% if payment.discount %}
-            <tr><th>Discount</th><td>-K{{ payment.discount }}</td></tr>
+            <tr><th>Discount</th><td>-K{{ payment.discount|floatformat:2 }}</td></tr>
             {% endif %}
-            <tr class="total-row"><th>TOTAL</th><td>K{{ payment.total }}</td></tr>
+            <tr class="total-row"><th>TOTAL AMOUNT</th><td>K{{ payment.total|floatformat:2 }}</td></tr>
         </table>
-        <p><strong>Payment Method:</strong> {{ payment.get_payment_method_display }}</p>
-        <p><strong>Payment Status:</strong> {{ payment.get_status_display }}</p>
+        <p style="margin-top: 10px; font-size: 12px; color: #555;">
+            <strong>Payment Method:</strong> {{ payment.get_payment_method_display }} &nbsp;&nbsp;|&nbsp;&nbsp;
+            <strong>Payment Status:</strong> {{ payment.get_status_display }}
+        </p>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
-        <p>Thank you for choosing NextDev-PNG!</p>
+        <p class="thank-you">Thank you for choosing NextDev-PNG!</p>
+        <p>NextDev-PNG Travel Booking Services | Madang Town, Madang Province, PNG</p>
         <p>Phone: +675 71570096 | Email: info@nextdev-png.com</p>
     </div>
 </body>
